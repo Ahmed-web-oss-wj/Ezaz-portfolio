@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expense Tracker — Ezaz Ahamad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F2F1ED;
+    --ink: #12151A;
+    --accent: #2C4BFF;
+    --sage: #5C6F5A;
+    --line: #D8D6CF;
+    --panel: #E8E6DF;
+    --red: #C1443C;
+    --green: #3E7A4D;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  a { color: inherit; text-decoration: none; }
+
+  .shell {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 28px 80px;
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    min-height: 100vh;
+  }
+
+  @media (max-width: 640px) {
+    .shell { padding: 0 18px 60px; border-left: none; border-right: none; }
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .brand { font-size: 15px; font-weight: 600; }
+  .back-link { font-size: 13px; color: var(--sage); }
+  .back-link:hover { color: var(--ink); }
+
+  .hero {
+    padding: 48px 0 32px;
+  }
+
+  .hero-label { font-size: 13px; color: var(--sage); margin-bottom: 12px; }
+
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .hero p {
+    margin-top: 14px;
+    font-size: 15px;
+    color: #3A3E33;
+    max-width: 52ch;
+  }
+
+  /* Summary cards */
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin: 32px 0;
+  }
+
+  @media (max-width: 640px) {
+    .summary { grid-template-columns: 1fr; }
+  }
+
+  .summary-cell {
+    background: var(--paper);
+    padding: 22px 20px;
+  }
+
+  .summary-cell .label {
+    font-size: 12px;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+
+  .summary-cell .value {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .value.income { color: var(--green); }
+  .value.expense { color: var(--red); }
+
+  /* Form */
+  .add-form {
+    border: 1px solid var(--line);
+    padding: 24px;
+    margin-bottom: 32px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 12px;
+    align-items: end;
+  }
+
+  @media (max-width: 640px) {
+    .add-form { grid-template-columns: 1fr; }
+  }
+
+  .field label {
+    display: block;
+    font-size: 11px;
+    color: var(--sage);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .field input,
+  .field select {
+    width: 100%;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--ink);
+  }
+
+  .field input:focus,
+  .field select:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .add-btn {
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 11px 20px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .add-btn:hover { background: var(--accent); }
+
+  /* List */
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-head h2 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .count-badge {
+    font-size: 12px;
+    color: var(--sage);
+  }
+
+  .expense-list { border: 1px solid var(--line); }
+
+  .expense-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 16px;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .expense-row:last-child { border-bottom: none; }
+
+  .expense-desc { font-size: 15px; font-weight: 500; }
+
+  .expense-cat {
+    font-size: 11px;
+    color: var(--sage);
+    background: var(--panel);
+    padding: 3px 10px;
+    display: inline-block;
+    width: fit-content;
+  }
+
+  .expense-amount { font-size: 15px; font-weight: 600; }
+  .expense-amount.income { color: var(--green); }
+  .expense-amount.expense { color: var(--red); }
+
+  .delete-btn {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--sage);
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.15s ease;
+  }
+
+  .delete-btn:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  @media (max-width: 640px) {
+    .expense-row {
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "desc amount"
+        "cat delete";
+      row-gap: 8px;
+    }
+    .expense-desc { grid-area: desc; }
+    .expense-amount { grid-area: amount; }
+    .expense-cat { grid-area: cat; }
+    .delete-btn { grid-area: delete; justify-self: end; }
+  }
+
+  .empty-state {
+    padding: 48px 20px;
+    text-align: center;
+    color: var(--sage);
+    font-size: 14px;
+  }
+
+  footer {
+    padding: 32px 0 0;
+    font-size: 12px;
+    color: var(--sage);
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <header>
+    <div class="brand">EXPENSE TRACKER</div>
+    <a class="back-link mono" href="index.html">← Back to Portfolio</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-label mono">Project 01 — Personal Finance Tool</div>
+    <h1>Expense Tracker</h1>
+    <p>A lightweight tool to log income and expenses and see where money goes. Built with vanilla HTML, CSS, and JavaScript — no frameworks, no dependencies.</p>
+  </section>
+
+  <div class="summary mono">
+    <div class="summary-cell">
+      <div class="label">TOTAL BALANCE</div>
+      <div class="value" id="balanceValue">₹0.00</div>
+    </div>
+    <div class="summary-cell">
+      <div class="label">INCOME</div>
+      <div class="value income" id="incomeValue">₹0.00</div>
+    </div>
+    <div class="summary-cell">
+      <div class="label">EXPENSES</div>
+      <div class="value expense" id="expenseValue">₹0.00</div>
+    </div>
+  </div>
+
+  <form class="add-form" id="addForm">
+    <div class="field">
+      <label>Description</label>
+      <input type="text" id="descInput" placeholder="e.g. Groceries" required>
+    </div>
+    <div class="field">
+      <label>Amount (₹)</label>
+      <input type="number" id="amountInput" placeholder="0.00" step="0.01" required>
+    </div>
+    <div class="field">
+      <label>Type</label>
+      <select id="typeInput">
+        <option value="expense">Expense</option>
+        <option value="income">Income</option>
+      </select>
+    </div>
+    <button type="submit" class="add-btn">Add</button>
+  </form>
+
+  <div class="section-head">
+    <h2>Transactions</h2>
+    <span class="count-badge mono" id="countBadge">0 entries</span>
+  </div>
+
+  <div class="expense-list" id="expenseList">
+    <div class="empty-state" id="emptyState">No transactions yet — add your first one above.</div>
+  </div>
+
+  <footer class="mono">
+    <span>© 2026 Ezaz Ahamad</span>
+    <span>Built with HTML, CSS &amp; JS</span>
+  </footer>
+</div>
+
+<script>
+  let transactions = [];
+  let nextId = 1;
+
+  const form = document.getElementById('addForm');
+  const listEl = document.getElementById('expenseList');
+  const emptyState = document.getElementById('emptyState');
+  const balanceEl = document.getElementById('balanceValue');
+  const incomeEl = document.getElementById('incomeValue');
+  const expenseEl = document.getElementById('expenseValue');
+  const countBadge = document.getElementById('countBadge');
+
+  function formatCurrency(num) {
+    return '₹' + Math.abs(num).toFixed(2);
+  }
+
+  function render() {
+    if (transactions.length === 0) {
+      listEl.innerHTML = '';
+      listEl.appendChild(emptyState);
+    } else {
+      listEl.innerHTML = '';
+      transactions.slice().reverse().forEach(t => {
+        const row = document.createElement('div');
+        row.className = 'expense-row';
+        row.innerHTML = `
+          <div class="expense-desc">${t.desc}</div>
+          <div class="expense-cat mono">${t.type === 'income' ? 'INCOME' : 'EXPENSE'}</div>
+          <div class="expense-amount ${t.type} mono">${t.type === 'income' ? '+' : '-'}${formatCurrency(t.amount)}</div>
+          <button class="delete-btn" data-id="${t.id}" title="Delete">✕</button>
+        `;
+        listEl.appendChild(row);
+      });
+    }
+
+    const income = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
+    const expense = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+    const balance = income - expense;
+
+    balanceEl.textContent = (balance < 0 ? '-' : '') + formatCurrency(balance);
+    incomeEl.textContent = formatCurrency(income);
+    expenseEl.textContent = formatCurrency(expense);
+    countBadge.textContent = transactions.length + (transactions.length === 1 ? ' entry' : ' entries');
+
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = parseInt(btn.getAttribute('data-id'));
+        transactions = transactions.filter(t => t.id !== id);
+        render();
+      });
+    });
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const desc = document.getElementById('descInput').value.trim();
+    const amount = parseFloat(document.getElementById('amountInput').value);
+    const type = document.getElementById('typeInput').value;
+
+    if (!desc || isNaN(amount) || amount <= 0) return;
+
+    transactions.push({ id: nextId++, desc, amount, type });
+    form.reset();
+    render();
+  });
+
+  render();
+</script>
+
+</body>
+</html>
