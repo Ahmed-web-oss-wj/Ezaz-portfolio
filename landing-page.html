@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Landing Page — Ezaz Ahamad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F1E8;
+    --ink: #221A14;
+    --rust: #B5502F;
+    --olive: #6B6247;
+    --line: #E1D5C2;
+    --card: #FFFCF6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .serif { font-family: 'Fraunces', serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  a { color: inherit; text-decoration: none; }
+
+  .meta-bar {
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+    font-size: 12px;
+    padding: 8px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .meta-bar a { text-decoration: underline; }
+
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 28px; }
+
+  @media (max-width: 640px) { .wrap { padding: 0 20px; } }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 0;
+  }
+
+  .logo { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+  .logo span { color: var(--rust); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 640px) { .nav-links { display: none; } }
+
+  .btn {
+    background: var(--rust);
+    color: var(--cream);
+    padding: 11px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+
+  .btn:hover { opacity: 0.85; }
+
+  /* Hero */
+  .hero {
+    padding: 60px 0 90px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  @media (max-width: 780px) {
+    .hero { grid-template-columns: 1fr; padding: 30px 0 60px; }
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    color: var(--rust);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 6vw, 62px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+
+  .hero p {
+    margin-top: 20px;
+    font-size: 17px;
+    color: var(--olive);
+    max-width: 46ch;
+  }
+
+  .hero-cta { margin-top: 32px; display: flex; gap: 14px; }
+
+  .btn-outline {
+    border: 1px solid var(--ink);
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .hero-visual {
+    aspect-ratio: 4/5;
+    background: linear-gradient(150deg, #D9CBB0, #B5502F 120%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-visual::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(135deg, rgba(34,26,20,0.06) 0 2px, transparent 2px 18px);
+  }
+
+  /* Sections */
+  section { padding: 70px 0; border-top: 1px solid var(--line); }
+
+  .section-label {
+    font-size: 12px;
+    color: var(--rust);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 600;
+    max-width: 16ch;
+  }
+
+  /* Menu grid */
+  .menu-grid {
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  @media (max-width: 780px) { .menu-grid { grid-template-columns: 1fr; } }
+
+  .menu-item { background: var(--card); padding: 32px 28px; }
+
+  .menu-item .price {
+    font-size: 13px;
+    color: var(--rust);
+    margin-bottom: 10px;
+  }
+
+  .menu-item h3 { font-size: 19px; font-weight: 600; margin-bottom: 8px; }
+  .menu-item p { font-size: 14px; color: var(--olive); }
+
+  /* Testimonials */
+  .testimonial-grid {
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 780px) { .testimonial-grid { grid-template-columns: 1fr; } }
+
+  .testimonial {
+    background: var(--card);
+    border: 1px solid var(--line);
+    padding: 28px;
+  }
+
+  .testimonial p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .testimonial .author {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--olive);
+  }
+
+  /* CTA band */
+  .cta-band {
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+    padding: 70px 28px;
+  }
+
+  .cta-band h2 {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 600;
+    max-width: 18ch;
+    margin: 0 auto 18px;
+  }
+
+  .cta-band p { color: #C9BFAE; max-width: 42ch; margin: 0 auto 28px; }
+
+  .cta-band .btn { background: var(--rust); }
+
+  /* Footer */
+  footer {
+    padding: 40px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--olive);
+  }
+
+  @media (max-width: 640px) { footer { flex-direction: column; gap: 10px; text-align: center; } }
+</style>
+</head>
+<body>
+
+<div class="meta-bar">Project 03 — Client-style Landing Page &nbsp;·&nbsp; <a href="index.html">← Back to Portfolio</a></div>
+
+<div class="wrap">
+  <nav>
+    <div class="logo serif">Amber<span>&amp;</span>Oak</div>
+    <div class="nav-links">
+      <a href="#menu">Menu</a>
+      <a href="#story">Our Story</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#visit">Visit</a>
+    </div>
+    <a class="btn" href="#visit">Find Us</a>
+  </nav>
+
+  <section class="hero" style="border-top: none; padding-top: 20px;">
+    <div>
+      <div class="hero-eyebrow mono">Specialty Coffee · Est. 2024</div>
+      <h1 class="serif">Slow coffee, made for people who notice things.</h1>
+      <p>Small-batch beans, roasted weekly. A quiet corner to read, work, or just sit with a good cup — no rush, ever.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#menu">View Menu</a>
+        <a class="btn-outline" href="#visit">Visit Us</a>
+      </div>
+    </div>
+    <div class="hero-visual"></div>
+  </section>
+
+  <section id="story">
+    <div class="section-label mono">Our Story</div>
+    <h2 class="section-title serif">Started with one question: why does coffee have to be rushed?</h2>
+    <p style="margin-top: 20px; max-width: 62ch; color: var(--olive); font-size: 16px;">Amber & Oak began as a single roasting machine in a garage and a belief that good coffee deserves patience — in the roasting, the brewing, and the drinking. Every cup here is made to order, one at a time, by someone who actually cares how it tastes.</p>
+  </section>
+
+  <section id="menu">
+    <div class="section-label mono">The Menu</div>
+    <h2 class="section-title serif">A few things we do very well.</h2>
+    <div class="menu-grid">
+      <div class="menu-item">
+        <div class="price mono">₹180</div>
+        <h3>Pour Over</h3>
+        <p>Single-origin, brewed fresh to order. Changes weekly with the roast.</p>
+      </div>
+      <div class="menu-item">
+        <div class="price mono">₹150</div>
+        <h3>Flat White</h3>
+        <p>Double shot, microfoam, no bitterness. Our most-ordered drink.</p>
+      </div>
+      <div class="menu-item">
+        <div class="price mono">₹220</div>
+        <h3>Cold Brew Flight</h3>
+        <p>Three 12-hour steeped brews, side by side, for the curious.</p>
+      </div>
+      <div class="menu-item">
+        <div class="price mono">₹140</div>
+        <h3>House Chai</h3>
+        <p>Slow-simmered, whole spices, no shortcuts.</p>
+      </div>
+      <div class="menu-item">
+        <div class="price mono">₹90</div>
+        <h3>Butter Croissant</h3>
+        <p>Baked fresh every morning, gone by noon most days.</p>
+      </div>
+      <div class="menu-item">
+        <div class="price mono">₹260</div>
+        <h3>Tasting Flight</h3>
+        <p>Four small pours across our current roasts, for sharing or not.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="section-label mono">What People Say</div>
+    <h2 class="section-title serif">Word of mouth is still our best marketing.</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial">
+        <p class="serif" style="font-style: italic;">"The kind of place where you order one coffee and end up staying for three hours. No complaints."</p>
+        <div class="author mono">— Priya M., regular since 2024</div>
+      </div>
+      <div class="testimonial">
+        <p class="serif" style="font-style: italic;">"Best flat white in the city, genuinely. And the staff remember your order after two visits."</p>
+        <div class="author mono">— Arjun K., regular since 2025</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit" style="border-bottom: 1px solid var(--line);">
+    <div class="section-label mono">Visit</div>
+    <h2 class="section-title serif">Come sit with us.</h2>
+    <p style="margin-top: 20px; color: var(--olive); font-size: 15px;">Open Tuesday–Sunday, 8am–7pm · Closed Mondays</p>
+    <p style="margin-top: 8px; color: var(--olive); font-size: 15px;">12 Church Road, near the old clock tower</p>
+  </section>
+</div>
+
+<div class="cta-band">
+  <h2 class="serif">Your table is basically already waiting.</h2>
+  <p>Walk-ins always welcome. Reservations for groups of 6 or more.</p>
+  <a class="btn" href="#visit">Get Directions</a>
+</div>
+
+<div class="wrap">
+  <footer class="mono">
+    <span>© 2026 Amber & Oak — Demo project by Ezaz Ahamad</span>
+    <a href="index.html">← Back to Portfolio</a>
+  </footer>
+</div>
+
+</body>
+</html>

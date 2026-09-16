@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipe Finder — Ezaz Ahamad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F2F1ED;
+    --ink: #12151A;
+    --accent: #2C4BFF;
+    --sage: #5C6F5A;
+    --line: #D8D6CF;
+    --panel: #E8E6DF;
+    --red: #C1443C;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  a { color: inherit; text-decoration: none; }
+
+  .shell {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 28px 80px;
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    min-height: 100vh;
+  }
+
+  @media (max-width: 640px) {
+    .shell { padding: 0 18px 60px; border-left: none; border-right: none; }
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .brand { font-size: 15px; font-weight: 600; }
+  .back-link { font-size: 13px; color: var(--sage); }
+  .back-link:hover { color: var(--ink); }
+
+  .hero { padding: 48px 0 32px; }
+  .hero-label { font-size: 13px; color: var(--sage); margin-bottom: 12px; }
+
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .hero p {
+    margin-top: 14px;
+    font-size: 15px;
+    color: #3A3E33;
+    max-width: 56ch;
+  }
+
+  /* Search bar */
+  .search-bar {
+    display: flex;
+    gap: 10px;
+    margin: 32px 0;
+  }
+
+  .search-bar input {
+    flex: 1;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 14px 16px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+  }
+
+  .search-bar input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .search-btn {
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 0 24px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .search-btn:hover { background: var(--accent); }
+
+  .quick-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .quick-tag {
+    font-size: 12px;
+    color: var(--sage);
+    border: 1px solid var(--line);
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .quick-tag:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Results */
+  .status-msg {
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--sage);
+    font-size: 14px;
+    border: 1px dashed var(--line);
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .results-grid { grid-template-columns: 1fr; }
+  }
+
+  .recipe-card {
+    border: 1px solid var(--line);
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+    overflow: hidden;
+  }
+
+  .recipe-card:hover { border-color: var(--accent); }
+
+  .recipe-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(10%);
+  }
+
+  .recipe-card-body { padding: 18px 20px; }
+
+  .recipe-card .tag {
+    font-size: 11px;
+    color: var(--sage);
+    margin-bottom: 6px;
+  }
+
+  .recipe-card h3 {
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(18, 21, 26, 0.65);
+    z-index: 100;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .modal-overlay.active { display: block; }
+
+  .modal-box {
+    background: var(--paper);
+    max-width: 640px;
+    margin: 40px auto;
+    border: 1px solid var(--line);
+  }
+
+  .modal-img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .modal-body { padding: 28px; }
+
+  .modal-close {
+    float: right;
+    background: none;
+    border: 1px solid var(--line);
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--sage);
+  }
+
+  .modal-close:hover { border-color: var(--red); color: var(--red); }
+
+  .modal-body h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    clear: both;
+  }
+
+  .modal-meta {
+    font-size: 12px;
+    color: var(--sage);
+    margin-bottom: 20px;
+  }
+
+  .modal-body h4 {
+    font-size: 13px;
+    color: var(--sage);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin: 20px 0 10px;
+  }
+
+  .ingredient-list {
+    list-style: none;
+    font-size: 14px;
+  }
+
+  .ingredient-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .ingredient-list li span:last-child {
+    color: var(--sage);
+    font-size: 13px;
+  }
+
+  .instructions {
+    font-size: 14px;
+    color: #2E3226;
+    white-space: pre-line;
+  }
+
+  footer {
+    padding: 32px 0 0;
+    font-size: 12px;
+    color: var(--sage);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--line);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin: 0 auto 14px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <header>
+    <div class="brand">RECIPE FINDER</div>
+    <a class="back-link mono" href="index.html">← Back to Portfolio</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-label mono">Project 02 — API Integration</div>
+    <h1>Recipe Finder</h1>
+    <p>Search thousands of real recipes by name or ingredient, pulled live from a public recipe database. Built with vanilla JavaScript using the Fetch API.</p>
+  </section>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search a dish, e.g. pasta, chicken curry..." autocomplete="off">
+    <button class="search-btn" id="searchBtn">Search</button>
+  </div>
+
+  <div class="quick-tags mono">
+    <span class="quick-tag" data-q="chicken">Chicken</span>
+    <span class="quick-tag" data-q="pasta">Pasta</span>
+    <span class="quick-tag" data-q="dessert">Dessert</span>
+    <span class="quick-tag" data-q="vegetarian">Vegetarian</span>
+    <span class="quick-tag" data-q="soup">Soup</span>
+  </div>
+
+  <div id="resultsArea">
+    <div class="status-msg">Search for a dish above to see recipes appear here.</div>
+  </div>
+
+  <footer class="mono">
+    <span>© 2026 Ezaz Ahamad</span>
+    <span>Data via TheMealDB API</span>
+  </footer>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const resultsArea = document.getElementById('resultsArea');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalBox = document.getElementById('modalBox');
+
+  async function searchRecipes(query) {
+    resultsArea.innerHTML = '<div class="status-msg"><div class="spinner"></div>Searching recipes...</div>';
+    try {
+      const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(query)}`);
+      const data = await res.json();
+
+      if (!data.meals) {
+        resultsArea.innerHTML = `<div class="status-msg">No recipes found for "${query}". Try another search.</div>`;
+        return;
+      }
+
+      const grid = document.createElement('div');
+      grid.className = 'results-grid';
+
+      data.meals.forEach(meal => {
+        const card = document.createElement('div');
+        card.className = 'recipe-card';
+        card.innerHTML = `
+          <img src="${meal.strMealThumb}" alt="${meal.strMeal}" loading="lazy">
+          <div class="recipe-card-body">
+            <div class="tag mono">${meal.strCategory || 'RECIPE'}</div>
+            <h3>${meal.strMeal}</h3>
+          </div>
+        `;
+        card.addEventListener('click', () => openModal(meal));
+        grid.appendChild(card);
+      });
+
+      resultsArea.innerHTML = '';
+      resultsArea.appendChild(grid);
+    } catch (err) {
+      resultsArea.innerHTML = '<div class="status-msg">Something went wrong fetching recipes. Please try again.</div>';
+    }
+  }
+
+  function openModal(meal) {
+    const ingredients = [];
+    for (let i = 1; i <= 20; i++) {
+      const ing = meal[`strIngredient${i}`];
+      const measure = meal[`strMeasure${i}`];
+      if (ing && ing.trim()) {
+        ingredients.push({ ing, measure: measure ? measure.trim() : '' });
+      }
+    }
+
+    modalBox.innerHTML = `
+      <img class="modal-img" src="${meal.strMealThumb}" alt="${meal.strMeal}">
+      <div class="modal-body">
+        <button class="modal-close" id="closeModalBtn">✕</button>
+        <h2>${meal.strMeal}</h2>
+        <div class="modal-meta mono">${meal.strCategory || ''}${meal.strArea ? ' · ' + meal.strArea : ''}</div>
+        <h4>Ingredients</h4>
+        <ul class="ingredient-list">
+          ${ingredients.map(i => `<li><span>${i.ing}</span><span>${i.measure}</span></li>`).join('')}
+        </ul>
+        <h4>Instructions</h4>
+        <p class="instructions">${meal.strInstructions}</p>
+      </div>
+    `;
+    modalOverlay.classList.add('active');
+    document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+  }
+
+  function closeModal() {
+    modalOverlay.classList.remove('active');
+  }
+
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  searchBtn.addEventListener('click', () => {
+    const q = searchInput.value.trim();
+    if (q) searchRecipes(q);
+  });
+
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      const q = searchInput.value.trim();
+      if (q) searchRecipes(q);
+    }
+  });
+
+  document.querySelectorAll('.quick-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      const q = tag.getAttribute('data-q');
+      searchInput.value = q;
+      searchRecipes(q);
+    });
+  });
+</script>
+
+</body>
+</html>

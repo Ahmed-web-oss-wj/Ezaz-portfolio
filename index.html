@@ -233,6 +233,12 @@
   }
 
   /* Project cards */
+  .projects-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
   .project-card {
     border: 1px solid var(--line);
     padding: 28px;
@@ -407,12 +413,26 @@
       <span class="section-index mono">03</span>
       <h2>Work</h2>
     </div>
-    <a class="project-card" href="expense-tracker.html">
-      <div class="proj-tag mono">PROJECT 01</div>
-      <h3>Expense Tracker</h3>
-      <p>A lightweight personal finance tool to log income and expenses and track balance in real time — built with vanilla HTML, CSS, and JavaScript.</p>
-      <div class="stack mono">HTML · CSS · JavaScript</div>
-    </a>
+    <div class="projects-stack">
+      <a class="project-card" href="expense-tracker.html">
+        <div class="proj-tag mono">PROJECT 01</div>
+        <h3>Expense Tracker</h3>
+        <p>A lightweight personal finance tool to log income and expenses and track balance in real time — built with vanilla HTML, CSS, and JavaScript.</p>
+        <div class="stack mono">HTML · CSS · JavaScript</div>
+      </a>
+      <a class="project-card" href="recipe-finder.html">
+        <div class="proj-tag mono">PROJECT 02</div>
+        <h3>Recipe Finder</h3>
+        <p>Search thousands of real recipes by name or ingredient, pulled live from a public API — with a full ingredients and instructions view.</p>
+        <div class="stack mono">JavaScript · Fetch API</div>
+      </a>
+      <a class="project-card" href="landing-page.html">
+        <div class="proj-tag mono">PROJECT 03</div>
+        <h3>Amber & Oak — Landing Page</h3>
+        <p>A client-style landing page for a fictional coffee brand — full site structure from hero to menu, testimonials, and a footer CTA.</p>
+        <div class="stack mono">HTML · CSS · Responsive Design</div>
+      </a>
+    </div>
   </section>
 
   <section id="contact">
