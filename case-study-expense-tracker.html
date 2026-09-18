@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study: Expense Tracker — Ezaz Ahamad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F2F1ED; --ink: #12151A; --accent: #2C4BFF;
+    --sage: #5C6F5A; --line: #D8D6CF; --panel: #E8E6DF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Space Grotesk', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  a { color: inherit; text-decoration: none; }
+
+  .shell { max-width: 800px; margin: 0 auto; padding: 0 28px 80px; border-left: 1px solid var(--line); border-right: 1px solid var(--line); min-height: 100vh; }
+  @media (max-width: 640px) { .shell { padding: 0 20px 60px; border-left: none; border-right: none; } }
+
+  header { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; border-bottom: 1px solid var(--line); }
+  .brand { font-size: 15px; font-weight: 600; }
+  .back-link { font-size: 13px; color: var(--sage); }
+  .back-link:hover { color: var(--ink); }
+
+  .hero { padding: 48px 0 36px; border-bottom: 1px solid var(--line); }
+  .hero-label { font-size: 13px; color: var(--accent); margin-bottom: 14px; }
+  .hero h1 { font-size: clamp(30px, 5vw, 46px); font-weight: 700; letter-spacing: -0.02em; max-width: 16ch; }
+  .hero p { margin-top: 18px; font-size: 16px; color: #3A3E33; max-width: 58ch; }
+
+  .cta-row { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+  .btn { padding: 11px 22px; font-size: 14px; font-weight: 600; border: none; cursor: pointer; transition: opacity 0.15s ease; }
+  .btn-primary { background: var(--ink); color: var(--paper); }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-outline { border: 1px solid var(--ink); }
+  .btn-outline:hover { background: var(--ink); color: var(--paper); }
+
+  .meta-strip { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
+  @media (max-width: 640px) { .meta-strip { grid-template-columns: 1fr; } }
+  .meta-cell { padding: 22px 24px; border-right: 1px solid var(--line); }
+  .meta-cell:last-child { border-right: none; }
+  @media (max-width: 640px) { .meta-cell { border-right: none; border-bottom: 1px solid var(--line); } .meta-cell:last-child { border-bottom: none; } }
+  .meta-label { font-size: 11px; color: var(--sage); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .meta-value { font-size: 15px; font-weight: 600; }
+
+  section { padding: 48px 0; border-bottom: 1px solid var(--line); }
+  .section-label { font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
+  section h2 { font-size: 24px; font-weight: 600; margin-bottom: 16px; }
+  section p { font-size: 15px; color: #2E3226; max-width: 62ch; margin-bottom: 14px; }
+
+  .feature-list { list-style: none; margin-top: 6px; }
+  .feature-list li { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; display: flex; gap: 12px; }
+  .feature-list li:last-child { border-bottom: none; }
+  .feature-list .num { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 13px; flex-shrink: 0; width: 24px; }
+
+  .stack-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+  .stack-tag { font-size: 12px; border: 1px solid var(--line); padding: 6px 14px; color: var(--sage); }
+
+  footer { padding: 32px 0 0; font-size: 12px; color: var(--sage); display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <header>
+    <div class="brand">CASE STUDY</div>
+    <a class="back-link mono" href="index.html">← Back to Portfolio</a>
+  </header>
+
+  <section class="hero" style="border-bottom: none;">
+    <div class="hero-label mono">Project 01</div>
+    <h1>Expense Tracker</h1>
+    <p>A lightweight personal finance tool built to answer one simple question at a glance: where is my money actually going?</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="expense-tracker.html">View Live Demo</a>
+      <a class="btn btn-outline" href="https://github.com/ezazahamad" target="_blank" rel="noopener">View Code</a>
+    </div>
+  </section>
+
+  <div class="meta-strip mono">
+    <div class="meta-cell">
+      <div class="meta-label">Role</div>
+      <div class="meta-value">Solo Developer</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Stack</div>
+      <div class="meta-value">HTML · CSS · JS</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Type</div>
+      <div class="meta-value">Personal Tool</div>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-label mono">The Problem</div>
+    <h2>Small expenses are easy to lose track of.</h2>
+    <p>Most people don't overspend on one big purchase — they lose track through a dozen small ones. I wanted a tool that made logging a transaction fast enough that I'd actually use it daily, without needing an app store download or a login.</p>
+  </section>
+
+  <section>
+    <div class="section-label mono">The Approach</div>
+    <h2>Keep it fast, keep it honest.</h2>
+    <p>I built this as a single-page tool with no build step and no dependencies — just HTML, CSS, and vanilla JavaScript. The entire interaction is: type a description, enter an amount, pick income or expense, hit add. The balance, income, and expense totals recalculate instantly using plain DOM updates, no framework needed.</p>
+    <p>The hardest part wasn't the logic — it was resisting the urge to over-engineer a simple tool. Keeping the code readable and the UI honest about what it does (and doesn't do — like not persisting data) mattered more than adding features nobody asked for.</p>
+  </section>
+
+  <section>
+    <div class="section-label mono">Key Features</div>
+    <ul class="feature-list">
+      <li><span class="num mono">01</span> Add income or expense entries with live category tagging</li>
+      <li><span class="num mono">02</span> Real-time balance, income, and expense totals</li>
+      <li><span class="num mono">03</span> One-click delete for any transaction</li>
+      <li><span class="num mono">04</span> Fully responsive layout, works cleanly on mobile</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-label mono">Tech Stack</div>
+    <div class="stack-tags mono">
+      <span class="stack-tag">HTML5</span>
+      <span class="stack-tag">CSS3 (Grid &amp; Flexbox)</span>
+      <span class="stack-tag">Vanilla JavaScript</span>
+      <span class="stack-tag">DOM Manipulation</span>
+    </div>
+  </section>
+
+  <section style="border-bottom: none;">
+    <div class="section-label mono">What I Learned</div>
+    <p>This project reinforced how much can be done with plain JavaScript before reaching for a framework — array methods like <code>filter</code> and <code>reduce</code> did all the heavy lifting for the totals. It also taught me to think about state management early, even in a small app: keeping transactions in a single array made every other part of the UI easy to keep in sync.</p>
+  </section>
+
+  <footer class="mono">
+    <span>© 2026 Ezaz Ahamad</span>
+    <a href="index.html">← Back to Portfolio</a>
+  </footer>
+</div>
+
+</body>
+</html>

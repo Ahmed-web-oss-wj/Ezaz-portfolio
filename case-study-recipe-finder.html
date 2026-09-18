@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study: Recipe Finder — Ezaz Ahamad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F2F1ED; --ink: #12151A; --accent: #2C4BFF;
+    --sage: #5C6F5A; --line: #D8D6CF; --panel: #E8E6DF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Space Grotesk', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  a { color: inherit; text-decoration: none; }
+
+  .shell { max-width: 800px; margin: 0 auto; padding: 0 28px 80px; border-left: 1px solid var(--line); border-right: 1px solid var(--line); min-height: 100vh; }
+  @media (max-width: 640px) { .shell { padding: 0 20px 60px; border-left: none; border-right: none; } }
+
+  header { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; border-bottom: 1px solid var(--line); }
+  .brand { font-size: 15px; font-weight: 600; }
+  .back-link { font-size: 13px; color: var(--sage); }
+  .back-link:hover { color: var(--ink); }
+
+  .hero { padding: 48px 0 36px; border-bottom: 1px solid var(--line); }
+  .hero-label { font-size: 13px; color: var(--accent); margin-bottom: 14px; }
+  .hero h1 { font-size: clamp(30px, 5vw, 46px); font-weight: 700; letter-spacing: -0.02em; max-width: 16ch; }
+  .hero p { margin-top: 18px; font-size: 16px; color: #3A3E33; max-width: 58ch; }
+
+  .cta-row { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+  .btn { padding: 11px 22px; font-size: 14px; font-weight: 600; border: none; cursor: pointer; transition: opacity 0.15s ease; }
+  .btn-primary { background: var(--ink); color: var(--paper); }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-outline { border: 1px solid var(--ink); }
+  .btn-outline:hover { background: var(--ink); color: var(--paper); }
+
+  .meta-strip { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
+  @media (max-width: 640px) { .meta-strip { grid-template-columns: 1fr; } }
+  .meta-cell { padding: 22px 24px; border-right: 1px solid var(--line); }
+  .meta-cell:last-child { border-right: none; }
+  @media (max-width: 640px) { .meta-cell { border-right: none; border-bottom: 1px solid var(--line); } .meta-cell:last-child { border-bottom: none; } }
+  .meta-label { font-size: 11px; color: var(--sage); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .meta-value { font-size: 15px; font-weight: 600; }
+
+  section { padding: 48px 0; border-bottom: 1px solid var(--line); }
+  .section-label { font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
+  section h2 { font-size: 24px; font-weight: 600; margin-bottom: 16px; }
+  section p { font-size: 15px; color: #2E3226; max-width: 62ch; margin-bottom: 14px; }
+
+  .feature-list { list-style: none; margin-top: 6px; }
+  .feature-list li { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; display: flex; gap: 12px; }
+  .feature-list li:last-child { border-bottom: none; }
+  .feature-list .num { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 13px; flex-shrink: 0; width: 24px; }
+
+  .stack-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+  .stack-tag { font-size: 12px; border: 1px solid var(--line); padding: 6px 14px; color: var(--sage); }
+
+  footer { padding: 32px 0 0; font-size: 12px; color: var(--sage); display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <header>
+    <div class="brand">CASE STUDY</div>
+    <a class="back-link mono" href="index.html">← Back to Portfolio</a>
+  </header>
+
+  <section class="hero" style="border-bottom: none;">
+    <div class="hero-label mono">Project 02</div>
+    <h1>Recipe Finder</h1>
+    <p>A recipe search app that pulls real, live data from a public API — built to practice working with asynchronous JavaScript and external data.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="recipe-finder.html">View Live Demo</a>
+      <a class="btn btn-outline" href="https://github.com/ezazahamad" target="_blank" rel="noopener">View Code</a>
+    </div>
+  </section>
+
+  <div class="meta-strip mono">
+    <div class="meta-cell">
+      <div class="meta-label">Role</div>
+      <div class="meta-value">Solo Developer</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Stack</div>
+      <div class="meta-value">JS · Fetch API</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Type</div>
+      <div class="meta-value">API Integration</div>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-label mono">The Problem</div>
+    <h2>Static portfolios only prove so much.</h2>
+    <p>Most beginner projects use hardcoded data — which is fine, but it doesn't show whether you can actually work with a live, unpredictable data source. I wanted a project that pulled from a real external API, handled the cases when things go wrong, and did it without any framework overhead.</p>
+  </section>
+
+  <section>
+    <div class="section-label mono">The Approach</div>
+    <h2>Fetch, render, handle failure gracefully.</h2>
+    <p>The app calls a public recipe database using the Fetch API and <code>async/await</code>. Search results render as a card grid; clicking any card opens a modal with the full ingredient list and instructions, built dynamically from the API response rather than hardcoded HTML.</p>
+    <p>A meaningful part of the build was handling the unhappy paths: no results found, a network failure, or an empty search — each shows a clear message instead of a blank screen or a silent failure.</p>
+  </section>
+
+  <section>
+    <div class="section-label mono">Key Features</div>
+    <ul class="feature-list">
+      <li><span class="num mono">01</span> Live search against a public recipe API, by dish name</li>
+      <li><span class="num mono">02</span> Quick-search tags for common categories</li>
+      <li><span class="num mono">03</span> Dynamic modal with full ingredients and step-by-step instructions</li>
+      <li><span class="num mono">04</span> Loading and empty/error states handled explicitly</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-label mono">Tech Stack</div>
+    <div class="stack-tags mono">
+      <span class="stack-tag">JavaScript (ES6+)</span>
+      <span class="stack-tag">Fetch API</span>
+      <span class="stack-tag">Async / Await</span>
+      <span class="stack-tag">Public REST API</span>
+    </div>
+  </section>
+
+  <section style="border-bottom: none;">
+    <div class="section-label mono">What I Learned</div>
+    <p>Working with a real API is a different discipline from working with fake data — the data isn't always shaped the way you expect, and things fail in ways you have to plan for in advance. This project pushed me to write defensive code and think about the user's experience during loading and error states, not just the happy path.</p>
+  </section>
+
+  <footer class="mono">
+    <span>© 2026 Ezaz Ahamad</span>
+    <a href="index.html">← Back to Portfolio</a>
+  </footer>
+</div>
+
+</body>
+</html>
